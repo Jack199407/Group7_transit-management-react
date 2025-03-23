@@ -1,0 +1,75 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: black;
+  color: gold;
+}
+
+.dashboard-header {
+  padding: 15px;
+  font-size: 20px;
+  border-bottom: 1px solid gold;
+  text-align: center;
+}
+
+.dashboard-body {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #111;
+  border-right: 1px solid gold;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar button {
+  background: none;
+  color: gold;
+  padding: 12px;
+  border: none;
+  border-bottom: 1px solid gold;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+  background-color: gold;
+  color: black;
+}
+
+.tab-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+}
+.tab-link {
+  display: block;
+  padding: 12px;
+  color: gold;
+  text-decoration: none;
+  border-bottom: 1px solid gold;
+  transition: background 0.3s;
+}
+
+.tab-link:hover {
+  background-color: gold;
+  color: black;
+}
+
+.tab-link.active {
+  background-color: gold;
+  color: black;
+  font-weight: bold;
+}

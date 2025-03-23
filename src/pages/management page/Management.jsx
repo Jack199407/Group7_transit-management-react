@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useNavigate } from "react-router-dom";
 import AddVehicle from "../../components/AddVehicle"; // 弹窗组件
 import "./Management.css";
 
@@ -86,6 +87,12 @@ class Management extends Component {
     return <div className="pagination">{pages}</div>;
   };
 
+  goToDetail = (vehicle) => {
+    this.props.navigate("/dashboard", {
+      state: { vehicle },
+    });
+  };
+
   render() {
     const { vehicles, currentPage, vehiclesPerPage, error, showModal } =
       this.state;
@@ -124,6 +131,7 @@ class Management extends Component {
                   <th>Maintain Gap Miles</th>
                   <th>Miles From Last Maintenance</th>
                   <th>Need Maintenance</th>
+                  <th>More Details</th>
                 </tr>
               </thead>
               <tbody>
@@ -167,6 +175,14 @@ class Management extends Component {
                     <td>{vehicle.maintainGapMiles}</td>
                     <td>{vehicle.milesFromLastMaintenance}</td>
                     <td>{vehicle.needMaintenance ? "Yes" : "No"}</td>
+                    <td>
+                      <button
+                        className="detail-button"
+                        onClick={() => this.goToDetail(vehicle)}
+                      >
+                        Details
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -189,4 +205,9 @@ class Management extends Component {
   }
 }
 
-export default Management;
+function WithNavigate(props) {
+  const navigate = useNavigate();
+  return <Management {...props} navigate={navigate} />;
+}
+
+export default WithNavigate;

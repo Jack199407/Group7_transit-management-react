@@ -106,3 +106,18 @@ h2 {
 .route-assign select:hover {
   background-color: #222;
 }
+
+.detail-button {
+  background-color: black;
+  color: gold;
+  border: 1px solid gold;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.detail-button:hover {
+  background-color: gold;
+  color: black;
+}
