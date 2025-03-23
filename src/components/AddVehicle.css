@@ -1,0 +1,112 @@
+/* 弹窗背景遮罩 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* 弹窗主体 */
+.modal {
+  background-color: black;
+  border: 2px solid gold;
+  border-radius: 10px;
+  padding: 25px 30px;
+  color: gold;
+  width: 400px;
+  box-shadow: 0 0 20px gold;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 关闭按钮 */
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  cursor: pointer;
+  font-size: 20px;
+  color: red;
+  transition: color 0.3s;
+}
+
+.close-btn:hover {
+  color: #ff4d4d;
+}
+
+/* 标题 */
+.modal h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+/* 表单内容布局 */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Label 样式 */
+.form-group label {
+  font-size: 14px;
+}
+
+/* 下拉框样式 */
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid gold;
+  background-color: #111;
+  color: gold;
+  border-radius: 4px;
+  font-size: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='gold' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  cursor: pointer;
+  transition: border 0.3s;
+}
+
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 5px gold;
+  border-color: #ffd700;
+}
+
+/* 错误提示 */
+.error {
+  color: red;
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* Save按钮样式 */
+.save-button {
+  background-color: gold;
+  color: black;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: center;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.save-button:hover {
+  background-color: #ffd700;
+  transform: scale(1.05);
+}

@@ -1,0 +1,67 @@
+.signup-container {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  background-color: black;
+  color: gold;
+  border: 1px solid gold;
+  border-radius: 8px;
+  box-shadow: 0 0 10px gold;
+}
+
+.signup-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup-container input {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid gold;
+  background-color: #111;
+  color: gold;
+  border-radius: 4px;
+}
+
+.signup-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: gold;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.signup-container button:hover {
+  background-color: #ffd700;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+.signup-container select {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid gold;
+  background-color: black;
+  color: gold;
+  border-radius: 4px;
+  appearance: none; /* 移除系统默认样式 */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='gold' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+  cursor: pointer;
+}
+
+.signup-container select:focus {
+  outline: none;
+  box-shadow: 0 0 5px gold;
+}

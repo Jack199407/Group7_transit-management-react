@@ -1,0 +1,108 @@
+.management-container {
+  padding: 20px;
+  background-color: black;
+  color: gold;
+  min-height: 100vh;
+}
+
+h2 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.add-button {
+  background-color: black;
+  color: gold;
+  border: 1px solid gold;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 15px;
+}
+
+.add-button:hover {
+  background-color: gold;
+  color: black;
+}
+
+.vehicle-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.vehicle-table th,
+.vehicle-table td {
+  border: 1px solid gold;
+  padding: 8px;
+  text-align: center;
+}
+
+.vehicle-table th {
+  background-color: #111;
+  color: gold;
+}
+
+.vehicle-table tr:nth-child(even) {
+  background-color: #222;
+}
+
+.vehicle-table tr:hover {
+  background-color: #333;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.no-data {
+  color: gold;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.pagination button {
+  background-color: black;
+  color: gold;
+  border: 1px solid gold;
+  padding: 6px 12px;
+  margin: 0 4px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination button:hover,
+.pagination .active-page {
+  background-color: gold;
+  color: black;
+}
+
+.route-assign {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: center;
+}
+
+.route-assign select {
+  padding: 4px 8px;
+  background-color: #111;
+  color: gold;
+  border: 1px solid gold;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.route-assign select:hover {
+  background-color: #222;
+}
