@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import "./ListSchedule.css";
-
 import AddSchedule from "./AddSchedule";
 
 class ListSchedule extends Component {
@@ -9,9 +8,7 @@ class ListSchedule extends Component {
     super(props);
     this.state = {
       schedules: [],
-      showForm: false,
-      expectedDepartTime: "",
-      expectedArrivalTime: "",
+      showModal: false,
       error: "",
     };
   }
@@ -41,46 +38,6 @@ class ListSchedule extends Component {
       });
   };
 
-  handleAddSchedule = () => {
-    const { expectedDepartTime, expectedArrivalTime } = this.state;
-    const { vehicle } = this.props;
-
-    if (!expectedDepartTime || !expectedArrivalTime) {
-      this.setState({ error: "Please fill in both times." });
-      return;
-    }
-
-    const payload = {
-      vehicleId: vehicle.id,
-      routeId: vehicle.currentAssignedRouteId,
-      expectedDepartTime,
-      expectedArrivalTime,
-    };
-
-    fetch("http://localhost:8080/add/schedule", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          this.setState({
-            showForm: false,
-            expectedDepartTime: "",
-            expectedArrivalTime: "",
-            error: "",
-          });
-          this.fetchSchedules();
-        } else {
-          this.setState({ error: "Failed to add schedule." });
-        }
-      })
-      .catch(() => {
-        this.setState({ error: "Server error while adding schedule." });
-      });
-  };
-
   handleStatusChange = (scheduleId, newStatus, currentStatus) => {
     if (newStatus === currentStatus) return;
 
@@ -107,14 +64,14 @@ class ListSchedule extends Component {
       });
   };
 
+  goToTracks = (schedule) => {
+    this.props.navigate("track", {
+      state: { schedule },
+    });
+  };
+
   render() {
-    const {
-      schedules,
-      showForm,
-      expectedDepartTime,
-      expectedArrivalTime,
-      error,
-    } = this.state;
+    const { schedules, showModal, error } = this.state;
     const { vehicle } = this.props;
 
     return (
@@ -128,7 +85,7 @@ class ListSchedule extends Component {
           + Add Schedule
         </button>
 
-        {this.state.showModal && (
+        {showModal && (
           <AddSchedule
             vehicle={vehicle}
             onClose={() => this.setState({ showModal: false })}
@@ -137,32 +94,6 @@ class ListSchedule extends Component {
               this.fetchSchedules();
             }}
           />
-        )}
-
-        {showForm && (
-          <div className="add-schedule-form">
-            <label>
-              Depart Time:
-              <input
-                type="datetime-local"
-                value={expectedDepartTime}
-                onChange={(e) =>
-                  this.setState({ expectedDepartTime: e.target.value })
-                }
-              />
-            </label>
-            <label>
-              Arrival Time:
-              <input
-                type="datetime-local"
-                value={expectedArrivalTime}
-                onChange={(e) =>
-                  this.setState({ expectedArrivalTime: e.target.value })
-                }
-              />
-            </label>
-            <button onClick={this.handleAddSchedule}>Save</button>
-          </div>
         )}
 
         {error && <p className="error">{error}</p>}
@@ -179,6 +110,7 @@ class ListSchedule extends Component {
                 <th>Depart Time</th>
                 <th>Arrival Time</th>
                 <th>Status</th>
+                <th>GPS Tracks</th>
               </tr>
             </thead>
             <tbody>
@@ -201,6 +133,14 @@ class ListSchedule extends Component {
                       <option value="break">break</option>
                     </select>
                   </td>
+                  <td>
+                    <button
+                      className="detail-button"
+                      onClick={() => this.goToTracks(s)}
+                    >
+                      Tracks
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -211,10 +151,11 @@ class ListSchedule extends Component {
   }
 }
 
-// 包装类组件，传递 vehicle
+// 包装获取 navigate 和 vehicle
 function ListScheduleWithContext(props) {
   const { vehicle } = useOutletContext();
-  return <ListSchedule {...props} vehicle={vehicle} />;
+  const navigate = useNavigate();
+  return <ListSchedule {...props} vehicle={vehicle} navigate={navigate} />;
 }
 
 export default ListScheduleWithContext;

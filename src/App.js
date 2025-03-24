@@ -7,6 +7,7 @@ import ListSchedule from "./components/dashboard tabs/list schedule/ListSchedule
 import EnergyConsumption from "./components/dashboard tabs/energy consumption/EnergyConsumption";
 import Maintenance from "./components/dashboard tabs/maintenance/Maintenance";
 import Analytics from "./components/dashboard tabs/analytics/Analytics";
+import Track from "./components/dashboard tabs/list schedule/Track";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/management" element={<Management />} />
         <Route path="/dashboard/*" element={<Dashboard />}>
           <Route path="schedule" element={<ListSchedule />} />
+          <Route path="schedule/track" element={<Track />} />
           <Route path="energy" element={<EnergyConsumption />} />
           <Route path="maintenance" element={<Maintenance />} />
           <Route path="analytics" element={<Analytics />} />

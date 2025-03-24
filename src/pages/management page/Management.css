@@ -3,6 +3,7 @@
   background-color: black;
   color: gold;
   min-height: 100vh;
+  font-family: Arial, sans-serif;
 }
 
 h2 {
@@ -10,22 +11,34 @@ h2 {
   text-align: center;
 }
 
-.add-button {
+/* 🔹 顶部按钮区域：右上角对齐 */
+.management-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+/* 🔹 Add + Logout 按钮统一样式 */
+.add-button,
+.logout-button {
   background-color: black;
   color: gold;
   border: 1px solid gold;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
   transition: background-color 0.3s, color 0.3s;
-  margin-bottom: 15px;
 }
 
-.add-button:hover {
+.add-button:hover,
+.logout-button:hover {
   background-color: gold;
   color: black;
 }
 
+/* 🔹 车辆表格 */
 .vehicle-table {
   width: 100%;
   border-collapse: collapse;
@@ -52,19 +65,7 @@ h2 {
   background-color: #333;
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
-  text-align: center;
-}
-
-.no-data {
-  color: gold;
-  font-size: 18px;
-  text-align: center;
-  margin-top: 20px;
-}
-
+/* 🔹 分页按钮 */
 .pagination {
   text-align: center;
   margin-top: 10px;
@@ -86,6 +87,7 @@ h2 {
   color: black;
 }
 
+/* 🔹 路线分配下拉框 */
 .route-assign {
   display: flex;
   align-items: center;
@@ -107,6 +109,7 @@ h2 {
   background-color: #222;
 }
 
+/* 🔹 Details 按钮 */
 .detail-button {
   background-color: black;
   color: gold;
@@ -120,4 +123,18 @@ h2 {
 .detail-button:hover {
   background-color: gold;
   color: black;
+}
+
+/* 🔹 错误与无数据提示 */
+.error {
+  color: red;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.no-data {
+  color: gold;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 20px;
 }

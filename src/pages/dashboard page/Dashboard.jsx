@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
@@ -58,7 +58,7 @@ class Dashboard extends Component {
             </NavLink>
           </div>
           <div className="tab-content">
-            <Outlet context={{ vehicle }} /> {/* 红色框区域更新 */}
+            <Outlet context={{ vehicle }} />
           </div>
         </div>
       </div>
@@ -66,29 +66,33 @@ class Dashboard extends Component {
   }
 }
 
-// 包装类组件，获取 location.state.vehicle
 function DashboardWrapper(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const vehicle = location.state?.vehicle;
 
-  React.useEffect(() => {
-    if (!vehicle) {
-      navigate("/management");
-    } else {
-      // 判断是否正好在 "/dashboard" 根路径
-      if (location.pathname === "/dashboard") {
-        // 自动跳转到 "/dashboard/schedule"，并传递 state.vehicle
-        navigate("/dashboard/schedule", { state: { vehicle } });
-      }
+  useEffect(() => {
+    if (vehicle) {
+      localStorage.setItem("selectedVehicle", JSON.stringify(vehicle));
     }
-  }, [vehicle, navigate, location.pathname]);
+  }, [vehicle]);
 
-  if (!vehicle || location.pathname === "/dashboard") {
-    return null; // 跳转期间不渲染内容
+  const storedVehicle =
+    vehicle || JSON.parse(localStorage.getItem("selectedVehicle"));
+
+  useEffect(() => {
+    if (!storedVehicle) {
+      navigate("/management"); // 🚨 仍无 vehicle 则跳回
+    } else if (location.pathname === "/dashboard") {
+      navigate("/dashboard/schedule", { state: { vehicle: storedVehicle } });
+    }
+  }, [storedVehicle, location.pathname, navigate]);
+
+  if (!storedVehicle || location.pathname === "/dashboard") {
+    return null; // 等待跳转
   }
 
-  return <Dashboard {...props} vehicle={vehicle} navigate={navigate} />;
+  return <Dashboard {...props} vehicle={storedVehicle} />;
 }
 
 export default DashboardWrapper;

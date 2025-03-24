@@ -106,9 +106,18 @@ class Management extends Component {
       <div className="management-container">
         <h2>Vehicle Management</h2>
 
-        <button className="add-button" onClick={this.toggleModal}>
-          + Add Vehicle
-        </button>
+        <div className="management-buttons">
+          <button
+            className="logout-button"
+            onClick={() => this.props.navigate("/login")}
+          >
+            Logout
+          </button>
+
+          <button className="add-button" onClick={this.toggleModal}>
+            + Add Vehicle
+          </button>
+        </div>
 
         {error && <p className="error">{error}</p>}
 
