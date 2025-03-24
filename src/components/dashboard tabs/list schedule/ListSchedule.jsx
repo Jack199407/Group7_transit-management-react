@@ -72,7 +72,10 @@ class ListSchedule extends Component {
 
   render() {
     const { schedules, showModal, error } = this.state;
-    const { vehicle } = this.props;
+    const { vehicle, routes } = this.props;
+    console.log("In listSchedule", routes);
+
+    const routeMap = new Map(routes.map((route) => [route.id, route]));
 
     return (
       <div className="list-schedule-container">
@@ -106,7 +109,7 @@ class ListSchedule extends Component {
               <tr>
                 <th>ID</th>
                 <th>Vehicle ID</th>
-                <th>Route ID</th>
+                <th>Route</th>
                 <th>Depart Time</th>
                 <th>Arrival Time</th>
                 <th>Status</th>
@@ -118,7 +121,7 @@ class ListSchedule extends Component {
                 <tr key={s.id}>
                   <td>{s.id}</td>
                   <td>{s.vehicleId}</td>
-                  <td>{s.routeId}</td>
+                  <td>{routeMap.get(s.routeId).routeName}</td>
                   <td>{s.expectedDepartTime}</td>
                   <td>{s.expectedArrivalTime}</td>
                   <td>
@@ -153,9 +156,16 @@ class ListSchedule extends Component {
 
 // 包装获取 navigate 和 vehicle
 function ListScheduleWithContext(props) {
-  const { vehicle } = useOutletContext();
+  const { vehicle, routes } = useOutletContext();
   const navigate = useNavigate();
-  return <ListSchedule {...props} vehicle={vehicle} navigate={navigate} />;
+  return (
+    <ListSchedule
+      {...props}
+      vehicle={vehicle}
+      routes={routes}
+      navigate={navigate}
+    />
+  );
 }
 
 export default ListScheduleWithContext;

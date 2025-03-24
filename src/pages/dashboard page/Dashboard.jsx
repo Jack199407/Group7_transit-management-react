@@ -8,7 +8,8 @@ class Dashboard extends Component {
   };
 
   render() {
-    const { vehicle } = this.props;
+    const { vehicle, routes } = this.props;
+    console.log("In dashboard:", routes);
 
     if (!vehicle) {
       return (
@@ -21,44 +22,29 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-container">
         <div className="dashboard-header">
-          Vehicle Dashboard - ID: <span>{vehicle.id}</span>
+          Vehicle Dashboard - ID: <span>{vehicle.id}</span> - Type:
+          <span>{vehicle.vehicleType}</span>
           <button className="back-button" onClick={this.handleBack}>
             ← Back to Management
           </button>
         </div>
         <div className="dashboard-body">
           <div className="sidebar">
-            <NavLink
-              to="/dashboard/schedule"
-              state={{ vehicle }}
-              className="tab-link"
-            >
+            <NavLink to="/dashboard/schedule" className="tab-link">
               List Schedule
             </NavLink>
-            <NavLink
-              to="/dashboard/energy"
-              state={{ vehicle }}
-              className="tab-link"
-            >
+            <NavLink to="/dashboard/energy" className="tab-link">
               Energy/Fuel Consumption
             </NavLink>
-            <NavLink
-              to="/dashboard/maintenance"
-              state={{ vehicle }}
-              className="tab-link"
-            >
+            <NavLink to="/dashboard/maintenance" className="tab-link">
               Maintenance
             </NavLink>
-            <NavLink
-              to="/dashboard/analytics"
-              state={{ vehicle }}
-              className="tab-link"
-            >
+            <NavLink to="/dashboard/analytics" className="tab-link">
               Analytics
             </NavLink>
           </div>
           <div className="tab-content">
-            <Outlet context={{ vehicle }} />
+            <Outlet context={{ vehicle, routes }} />
           </div>
         </div>
       </div>
@@ -69,30 +55,43 @@ class Dashboard extends Component {
 function DashboardWrapper(props) {
   const location = useLocation();
   const navigate = useNavigate();
+
   const vehicle = location.state?.vehicle;
+  const routes = location.state?.routes;
 
   useEffect(() => {
-    if (vehicle) {
+    if (vehicle && routes) {
       localStorage.setItem("selectedVehicle", JSON.stringify(vehicle));
+      localStorage.setItem("routesList", JSON.stringify(routes));
     }
-  }, [vehicle]);
+  }, [vehicle, routes]);
 
   const storedVehicle =
     vehicle || JSON.parse(localStorage.getItem("selectedVehicle"));
+  const storedRoutes = routes || JSON.parse(localStorage.getItem("routesList"));
 
   useEffect(() => {
-    if (!storedVehicle) {
-      navigate("/management"); // 🚨 仍无 vehicle 则跳回
+    if (!storedVehicle || !storedRoutes) {
+      navigate("/management");
     } else if (location.pathname === "/dashboard") {
-      navigate("/dashboard/schedule", { state: { vehicle: storedVehicle } });
+      navigate("/dashboard/schedule", {
+        state: { vehicle: storedVehicle, routes: storedRoutes },
+      });
     }
-  }, [storedVehicle, location.pathname, navigate]);
+  }, [storedVehicle, storedRoutes, location.pathname, navigate]);
 
-  if (!storedVehicle || location.pathname === "/dashboard") {
-    return null; // 等待跳转
+  if (!storedVehicle || !storedRoutes || location.pathname === "/dashboard") {
+    return null;
   }
 
-  return <Dashboard {...props} vehicle={storedVehicle} />;
+  return (
+    <Dashboard
+      {...props}
+      vehicle={storedVehicle}
+      routes={storedRoutes}
+      navigate={navigate}
+    />
+  );
 }
 
 export default DashboardWrapper;

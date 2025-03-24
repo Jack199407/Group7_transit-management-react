@@ -8,6 +8,7 @@ class Management extends Component {
     super(props);
     this.state = {
       vehicles: [],
+      routes: [],
       currentPage: 1,
       vehiclesPerPage: 10,
       error: "",
@@ -26,10 +27,12 @@ class Management extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        const arr = data.data;
-        if (Array.isArray(arr)) {
-          const sorted = arr.sort((a, b) => b.id - a.id);
-          this.setState({ vehicles: sorted });
+        const vehicleList = data.data.vehicles;
+        const routeList = data.data.routes;
+        if (Array.isArray(vehicleList)) {
+          const sortedVehicle = vehicleList.sort((a, b) => b.id - a.id);
+          const sortedRoute = routeList.sort((a, b) => b.id - a.id);
+          this.setState({ vehicles: sortedVehicle, routes: sortedRoute });
         } else {
           this.setState({ error: "Invalid data format" });
         }
@@ -87,14 +90,15 @@ class Management extends Component {
     return <div className="pagination">{pages}</div>;
   };
 
-  goToDetail = (vehicle) => {
+  goToDetail = (vehicle, routes) => {
+    console.log("In management:", routes);
     this.props.navigate("/dashboard", {
-      state: { vehicle },
+      state: { vehicle, routes },
     });
   };
 
   render() {
-    const { vehicles, currentPage, vehiclesPerPage, error, showModal } =
+    const { vehicles, routes, currentPage, vehiclesPerPage, error, showModal } =
       this.state;
 
     const indexOfLast = currentPage * vehiclesPerPage;
@@ -134,7 +138,7 @@ class Management extends Component {
                   <th>Fuel Type</th>
                   <th>Fuel Consumption Rate</th>
                   <th>Max Passengers</th>
-                  <th>Assigned Route ID</th>
+                  <th>Assigned Route</th>
                   <th>Total Miles</th>
                   <th>Total Consumption</th>
                   <th>Maintain Gap Miles</th>
@@ -156,7 +160,7 @@ class Management extends Component {
                       <div className="route-assign">
                         {vehicle.currentAssignedRouteId == null
                           ? "Unassigned"
-                          : vehicle.currentAssignedRouteId}
+                          : vehicle.currentRouteName}
                         <select
                           onChange={(e) =>
                             this.handleAssignRoute(
@@ -171,9 +175,9 @@ class Management extends Component {
                               ? "Assign Route"
                               : "Change Route"}
                           </option>
-                          {[1, 2, 3, 4, 5].map((num) => (
-                            <option key={num} value={num}>
-                              {num}
+                          {routes.map((obj) => (
+                            <option key={obj.id} value={obj.id}>
+                              {obj.routeName}
                             </option>
                           ))}
                         </select>
@@ -187,7 +191,7 @@ class Management extends Component {
                     <td>
                       <button
                         className="detail-button"
-                        onClick={() => this.goToDetail(vehicle)}
+                        onClick={() => this.goToDetail(vehicle, routes)}
                       >
                         Details
                       </button>
