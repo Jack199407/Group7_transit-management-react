@@ -1,0 +1,70 @@
+.list-schedule-container {
+  color: gold;
+  font-family: Arial, sans-serif;
+}
+
+.add-schedule-button {
+  margin: 10px 0;
+  padding: 8px 14px;
+  background-color: gold;
+  color: black;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.add-schedule-form {
+  margin-bottom: 10px;
+}
+
+.add-schedule-form input {
+  margin-left: 10px;
+  margin-right: 20px;
+  padding: 4px;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid gold;
+  padding: 8px;
+  text-align: center;
+}
+
+.schedule-table select {
+  background-color: black;
+  color: gold;
+  border: 1px solid gold;
+  padding: 4px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.schedule-table select:focus {
+  outline: none;
+  border-color: gold;
+  box-shadow: 0 0 5px gold;
+}
+
+.schedule-table option {
+  background-color: black;
+  color: gold;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.no-data {
+  margin-top: 10px;
+  color: gold;
+  font-style: italic;
+}

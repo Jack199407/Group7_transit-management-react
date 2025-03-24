@@ -3,6 +3,10 @@ import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
 
 class Dashboard extends Component {
+  handleBack = () => {
+    this.props.navigate("/management");
+  };
+
   render() {
     const { vehicle } = this.props;
 
@@ -18,6 +22,9 @@ class Dashboard extends Component {
       <div className="dashboard-container">
         <div className="dashboard-header">
           Vehicle Dashboard - ID: <span>{vehicle.id}</span>
+          <button className="back-button" onClick={this.handleBack}>
+            ← Back to Management
+          </button>
         </div>
         <div className="dashboard-body">
           <div className="sidebar">
@@ -81,7 +88,7 @@ function DashboardWrapper(props) {
     return null; // 跳转期间不渲染内容
   }
 
-  return <Dashboard {...props} vehicle={vehicle} />;
+  return <Dashboard {...props} vehicle={vehicle} navigate={navigate} />;
 }
 
 export default DashboardWrapper;
