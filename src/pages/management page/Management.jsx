@@ -91,7 +91,6 @@ class Management extends Component {
   };
 
   goToDetail = (vehicle, routes) => {
-    console.log("In management:", routes);
     this.props.navigate("/dashboard", {
       state: { vehicle, routes },
     });

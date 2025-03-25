@@ -64,16 +64,15 @@ class ListSchedule extends Component {
       });
   };
 
-  goToTracks = (schedule) => {
+  goToTracks = (schedule, vehicle) => {
     this.props.navigate("track", {
-      state: { schedule },
+      state: { schedule, vehicle },
     });
   };
 
   render() {
     const { schedules, showModal, error } = this.state;
     const { vehicle, routes } = this.props;
-    console.log("In listSchedule", routes);
 
     const routeMap = new Map(routes.map((route) => [route.id, route]));
 
@@ -139,7 +138,7 @@ class ListSchedule extends Component {
                   <td>
                     <button
                       className="detail-button"
-                      onClick={() => this.goToTracks(s)}
+                      onClick={() => this.goToTracks(s, vehicle)}
                     >
                       Tracks
                     </button>

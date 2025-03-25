@@ -9,8 +9,6 @@ class Dashboard extends Component {
 
   render() {
     const { vehicle, routes } = this.props;
-    console.log("In dashboard:", routes);
-
     if (!vehicle) {
       return (
         <div className="error">
@@ -53,6 +51,7 @@ class Dashboard extends Component {
 }
 
 function DashboardWrapper(props) {
+  console.log("DashboardWrapper is excuted");
   const location = useLocation();
   const navigate = useNavigate();
 
