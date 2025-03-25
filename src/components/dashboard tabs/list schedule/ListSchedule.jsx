@@ -153,7 +153,6 @@ class ListSchedule extends Component {
   }
 }
 
-// 包装获取 navigate 和 vehicle
 function ListScheduleWithContext(props) {
   const { vehicle, routes } = useOutletContext();
   const navigate = useNavigate();

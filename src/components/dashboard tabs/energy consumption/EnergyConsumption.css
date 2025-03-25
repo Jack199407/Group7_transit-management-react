@@ -1,0 +1,41 @@
+.energy-container {
+  padding: 20px;
+  color: gold;
+  background-color: black;
+}
+
+.energy-info {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.energy-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid gold;
+  padding: 8px 0;
+}
+
+.key {
+  font-weight: bold;
+  width: 40%;
+}
+
+.value {
+  text-align: right;
+  width: 60%;
+}
+
+.energy-error {
+  color: red;
+  padding: 10px;
+  text-align: center;
+}
+
+.energy-loading {
+  color: gold;
+  padding: 10px;
+  text-align: center;
+}
