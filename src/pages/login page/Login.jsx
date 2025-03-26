@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css"; // 黑金风格 CSS
+import { UserContext } from "../../context/UserContext";
+import "./Login.css";
 
 class Login extends Component {
   constructor(props) {
@@ -28,18 +29,19 @@ class Login extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
-          this.props.navigate("/management"); // 路由跳转
+        console.log("data:", data);
+        if (data.success && data.data) {
+          this.props.login(data.data);
+          this.props.navigate("/management");
         } else {
-          this.setState({ error: data.error });
+          this.setState({ error: data.error || "Login failed" });
         }
       })
       .catch(() => {
-        this.setState({ error: "server error" });
+        this.setState({ error: "Server error" });
       });
   };
 
-  // 新增跳转注册页面的方法
   handleSignUp = () => {
     this.props.navigate("/signup");
   };
@@ -49,7 +51,7 @@ class Login extends Component {
 
     return (
       <div className="login-container">
-        <h2>Welcom to Transit Management!</h2>
+        <h2>Welcome to Transit Management!</h2>
         <form onSubmit={this.handleSubmit}>
           <label>Username:</label>
           <input
@@ -67,11 +69,10 @@ class Login extends Component {
             onChange={this.handleChange}
             required
           />
-          <button type="submit">Long In</button>
+          <button type="submit">Log In</button>
         </form>
         {error && <p className="error">{error}</p>}
 
-        {/* Sign up按钮 */}
         <button onClick={this.handleSignUp} className="signup-button">
           Sign Up
         </button>
@@ -82,7 +83,8 @@ class Login extends Component {
 
 function WithNavigate(props) {
   const navigate = useNavigate();
-  return <Login {...props} navigate={navigate} />;
+  const { login } = useContext(UserContext);
+  return <Login {...props} navigate={navigate} login={login} />;
 }
 
 export default WithNavigate;

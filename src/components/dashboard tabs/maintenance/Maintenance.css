@@ -1,0 +1,89 @@
+.maintenance-container {
+  color: gold;
+  background-color: black;
+  padding: 20px;
+  border: 1px solid gold;
+  border-radius: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.maintenance-item {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.label {
+  width: 160px;
+  font-weight: bold;
+}
+
+.record-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 5px;
+}
+
+.record-list li {
+  margin-left: 10px;
+}
+
+.add-record-button {
+  margin-top: 20px;
+  padding: 8px 12px;
+  background-color: gold;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: black;
+  border: 2px solid gold;
+  border-radius: 8px;
+  padding: 20px;
+  color: gold;
+}
+
+.modal-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.modal input {
+  margin-left: 10px;
+  padding: 4px;
+  color: gold;
+  background-color: black;
+  border: 1px solid gold;
+}
+
+.modal-actions button {
+  padding: 6px 12px;
+  border: 1px solid gold;
+  background-color: black;
+  color: gold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.modal-actions button:hover {
+  background-color: gold;
+  color: black;
+}

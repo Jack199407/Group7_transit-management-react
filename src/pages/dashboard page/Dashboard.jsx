@@ -51,7 +51,6 @@ class Dashboard extends Component {
 }
 
 function DashboardWrapper(props) {
-  console.log("DashboardWrapper is excuted");
   const location = useLocation();
   const navigate = useNavigate();
 
