@@ -1,85 +1,119 @@
 .dashboard-container {
-  display: flex;
-  flex-direction: column;
+  background-color: #000;
+  color: #ffd700;
   min-height: 100vh;
-  background-color: black;
-  color: gold;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.dashboard-header {
-  padding: 15px;
-  font-size: 20px;
-  border-bottom: 1px solid gold;
-  text-align: center;
+.dashboard-header span {
+  margin-left: 8px;
+  font-weight: bold;
+}
+
+.user-role {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffd700;
 }
 
 .dashboard-body {
   display: flex;
-  flex: 1;
+  min-height: calc(100vh - 70px); /* 减去 header 的高度 */
 }
 
 .sidebar {
-  width: 200px;
   background-color: #111;
-  border-right: 1px solid gold;
+  width: 200px;
+  border-right: 1px solid #ffd700;
   display: flex;
   flex-direction: column;
+  padding-top: 20px;
 }
 
-.sidebar button {
-  background: none;
-  color: gold;
-  padding: 12px;
-  border: none;
-  border-bottom: 1px solid gold;
-  text-align: left;
-  cursor: pointer;
-  transition: background-color 0.3s;
+.tab-link {
+  color: #ffd700;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s;
 }
 
-.sidebar button:hover,
-.sidebar button.active {
-  background-color: gold;
-  color: black;
+.tab-link:hover {
+  background-color: #222;
+}
+
+.tab-link.active {
+  background-color: #ffd700;
+  color: #000;
 }
 
 .tab-content {
   flex: 1;
-  padding: 20px;
+  padding: 24px;
 }
 
 .error {
   color: red;
-  text-align: center;
+  font-weight: bold;
   padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  background-color: #111;
+  border-bottom: 1px solid #ffd700;
   font-size: 16px;
-}
-.tab-link {
-  display: block;
-  padding: 12px;
-  color: gold;
-  text-decoration: none;
-  border-bottom: 1px solid gold;
-  transition: background 0.3s;
-}
-
-.tab-link:hover {
-  background-color: gold;
-  color: black;
-}
-
-.tab-link.active {
-  background-color: gold;
-  color: black;
   font-weight: bold;
+  color: #ffd700;
 }
+
+/* 左侧标题 */
+.dashboard-title {
+  flex: 1;
+  font-size: 18px;
+  color: #ffd700;
+}
+
+/* 中间居中的车辆信息 */
+.dashboard-vehicle-info {
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+/* 右侧按钮 + 身份 */
+.dashboard-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 返回按钮 */
 .back-button {
-  margin-left: 20px;
-  padding: 6px 12px;
-  background-color: gold;
-  color: black;
-  border: none;
-  border-radius: 4px;
+  background-color: #ffd700;
+  color: #000;
   font-weight: bold;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
   cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-button:hover {
+  background-color: #ffcc00;
+}
+
+/* 用户身份 */
+.user-role {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffd700;
 }

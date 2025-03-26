@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { useLocation } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 import dayjs from "dayjs";
 import "./Track.css";
 
@@ -60,6 +61,11 @@ class Track extends Component {
   handleSave = async (index, vehicle) => {
     const row = this.state.tracks[index];
     const { departTime, arrivalTime, realMiles, realConsumption } = row;
+    const { user } = this.props;
+    if (!user || user.roleType !== 0) {
+      alert("⚠️ You do not have permission to do this.");
+      return;
+    }
     if (!departTime || !arrivalTime || !realMiles || !realConsumption) {
       alert("Please complete all required fields.");
       return;
@@ -221,11 +227,11 @@ function TrackWrapper(props) {
   const location = useLocation();
   const schedule = location.state?.schedule;
   const vehicle = location.state?.vehicle;
-
+  const { user } = useContext(UserContext);
   console.log("schedule", schedule);
   console.log("vehicle", vehicle);
 
-  return <Track {...props} schedule={schedule} vehicle={vehicle} />;
+  return <Track {...props} schedule={schedule} vehicle={vehicle} user={user} />;
 }
 
 export default TrackWrapper;

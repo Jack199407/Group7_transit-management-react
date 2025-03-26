@@ -124,7 +124,10 @@ class Management extends Component {
         <div className="management-buttons">
           <button
             className="logout-button"
-            onClick={() => this.props.navigate("/login")}
+            onClick={() => {
+              this.props.logout();
+              this.props.navigate("/login");
+            }}
           >
             Logout
           </button>
@@ -231,8 +234,10 @@ class Management extends Component {
 
 function WithNavigate(props) {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
-  return <Management {...props} navigate={navigate} user={user} />;
+  const { user, logout } = useContext(UserContext);
+  return (
+    <Management {...props} navigate={navigate} user={user} logout={logout} />
+  );
 }
 
 export default WithNavigate;

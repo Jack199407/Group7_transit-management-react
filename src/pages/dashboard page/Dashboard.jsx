@@ -1,5 +1,6 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useContext } from "react";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 import "./Dashboard.css";
 
 class Dashboard extends Component {
@@ -9,6 +10,7 @@ class Dashboard extends Component {
 
   render() {
     const { vehicle, routes } = this.props;
+    const { user } = this.props;
     if (!vehicle) {
       return (
         <div className="error">
@@ -20,12 +22,23 @@ class Dashboard extends Component {
     return (
       <div className="dashboard-container">
         <div className="dashboard-header">
-          Vehicle Dashboard - ID: <span>{vehicle.id}</span> - Type:
-          <span>{vehicle.vehicleType}</span>
-          <button className="back-button" onClick={this.handleBack}>
-            ← Back to Management
-          </button>
+          <div className="dashboard-title">Vehicle Dashboard</div>
+
+          <div className="dashboard-vehicle-info">
+            ID: <span>{vehicle.id}</span> &nbsp; | &nbsp; Type:{" "}
+            <span>{vehicle.vehicleType}</span>
+          </div>
+
+          <div className="dashboard-right">
+            <button className="back-button" onClick={this.handleBack}>
+              ← Back to Management
+            </button>
+            <span className="user-role">
+              {user.roleType === 0 ? "👑 Transit Manager" : "🛠️ Operator"}
+            </span>
+          </div>
         </div>
+
         <div className="dashboard-body">
           <div className="sidebar">
             <NavLink to="/dashboard/schedule" className="tab-link">
@@ -56,6 +69,8 @@ function DashboardWrapper(props) {
 
   const vehicle = location.state?.vehicle;
   const routes = location.state?.routes;
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (vehicle && routes) {
@@ -88,6 +103,7 @@ function DashboardWrapper(props) {
       vehicle={storedVehicle}
       routes={storedRoutes}
       navigate={navigate}
+      user={user}
     />
   );
 }

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { useOutletContext } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 import "./Maintenance.css";
 
 class Maintenance extends Component {
@@ -40,6 +41,11 @@ class Maintenance extends Component {
   };
 
   handleAddRecord = () => {
+    const { user } = this.props;
+    if (!user || user.roleType !== 0) {
+      alert("⚠️ You do not have permission to do this.");
+      return;
+    }
     this.setState({ showModal: true });
   };
 
@@ -154,7 +160,8 @@ class Maintenance extends Component {
 
 function MaintenanceWithContext(props) {
   const { vehicle } = useOutletContext();
-  return <Maintenance {...props} vehicle={vehicle} />;
+  const { user } = useContext(UserContext);
+  return <Maintenance {...props} vehicle={vehicle} user={user} />;
 }
 
 export default MaintenanceWithContext;
