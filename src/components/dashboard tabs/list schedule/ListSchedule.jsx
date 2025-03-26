@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 import "./ListSchedule.css";
 import AddSchedule from "./AddSchedule";
 
@@ -75,14 +76,20 @@ class ListSchedule extends Component {
     const { vehicle, routes } = this.props;
 
     const routeMap = new Map(routes.map((route) => [route.id, route]));
-
+    const { user } = this.props;
     return (
       <div className="list-schedule-container">
         <h3>Schedules for Vehicle ID: {vehicle.id}</h3>
 
         <button
           className="add-schedule-button"
-          onClick={() => this.setState({ showModal: true })}
+          onClick={() => {
+            if (!user || user.roleType !== 0) {
+              alert("⚠️ You do not have permission to do this.");
+              return;
+            }
+            this.setState({ showModal: true });
+          }}
         >
           + Add Schedule
         </button>
@@ -156,12 +163,14 @@ class ListSchedule extends Component {
 function ListScheduleWithContext(props) {
   const { vehicle, routes } = useOutletContext();
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   return (
     <ListSchedule
       {...props}
       vehicle={vehicle}
       routes={routes}
       navigate={navigate}
+      user={user}
     />
   );
 }

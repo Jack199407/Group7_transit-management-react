@@ -29,7 +29,6 @@ class Login extends Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data:", data);
         if (data.success && data.data) {
           this.props.login(data.data);
           this.props.navigate("/management");

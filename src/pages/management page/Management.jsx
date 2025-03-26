@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import AddVehicle from "../../components/AddVehicle"; // 弹窗组件
+import { UserContext } from "../../context/UserContext";
+import AddVehicle from "../../components/AddVehicle";
 import "./Management.css";
 
 class Management extends Component {
@@ -47,10 +48,21 @@ class Management extends Component {
   };
 
   toggleModal = () => {
+    const { user } = this.props;
+    if (!user || user.roleType !== 0) {
+      alert("⚠️ You do not have permission to do this.");
+      return;
+    }
     this.setState((prevState) => ({ showModal: !prevState.showModal }));
   };
 
   handleAssignRoute = (vehicleId, routeId) => {
+    const { user } = this.props;
+    if (!user || user.roleType !== 0) {
+      alert("⚠️ You do not have permission to do this.");
+      return;
+    }
+
     const payload = { vehicleId, routeId };
 
     fetch("http://localhost:8080/assign/route", {
@@ -219,7 +231,8 @@ class Management extends Component {
 
 function WithNavigate(props) {
   const navigate = useNavigate();
-  return <Management {...props} navigate={navigate} />;
+  const { user } = useContext(UserContext);
+  return <Management {...props} navigate={navigate} user={user} />;
 }
 
 export default WithNavigate;
