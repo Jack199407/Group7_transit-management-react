@@ -1,3 +1,5 @@
+# You have invited GitHub user krigerg (krigerg@algonquincollege.com). Are you sure you invited the CORRECT Professor
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
